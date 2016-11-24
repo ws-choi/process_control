@@ -8,7 +8,7 @@ tau = param(2);
 y= @(t) 5 + 5/24*(-t^4 - 4*t^3 - 12*t^2 - 24*t - 24)*exp(-t);
 
 %%%% ¸ðµ¨¸µµÈ y
-y_modeling = @(t) Uss*K*(1-exp((d-t)/tau));
+y_modeling = @(t) Uss*K*(1-exp( (-(t-d)/tau) ));
 
 %%%% Objective Funtion
 
