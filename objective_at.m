@@ -1,7 +1,8 @@
-function [ result ] = objective_at(d2, tau1, tau2)
-Uss = ones;
+function [ result ] = objective_at( param, Uss, K , N)
 
-K=5; %%% TODO: 바꿔야함
+d2 = param(1);
+tau1 = param(2);
+tau2 = param(3);
 
 %%%% 실제 y
 
@@ -20,7 +21,7 @@ error = @(t) ...
 ret = error(1);
 
 for n = 2:N
-    ret = ret + error(n, d2, tau1, tau2);
+    ret = ret + error(n);
 end
 
 result = ret;
