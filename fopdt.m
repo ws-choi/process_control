@@ -1,36 +1,10 @@
-%%%% 변수정의
+clear all
+close all
 
-syms s t;
-single x;
-Uss = ones;
+%%%% 변수 및 상수 선언
+syms t param;
 
-%%%% 수식 정의
-ys = 5/(s+1).^5
-yt= 5 + 5/24*(-t.^4 - 4.*t.^3 - 12.*t.^2 - 24.*t - 24).*exp(-t);
+v0 = [2,5];
+obj = @(param) fopdt_object(param, ones, 5, 100);
 
-%%%% 변곡점 구하기
-ddy = diff(diff(yt));
-solddy=solve(ddy==0);
-inf = find(solddy);
-inflectPt = solddy(inf);
-xi=inflectPt;
-
-yx =@(t) yt_at
-dyx = @(x) 5/24*(x.^4).*exp(-x);
-TGLine = @(t) dyx(xi).*(t-xi)+yx(xi);
-fplot(TGLine, [0, 15]);
-hold on;
-
-my_yt= @(t) 5 + 5/24*(-t.^4 - 4.*t.^3 - 12.*t.^2 - 24.*t - 24).*exp(-t);
-
-fplot(my_yt, [0,15]);
-ylimit = limit(yt, t,inf);
-slimit = limit(ys, s, 0);
-TGL = @(x) dyx(xi).*(x-xi)+yx(xi);
-K = ylimit/Uss;
-%%----------------------FOPDT근사 방법1
-d = solve(TGLine==0);
-tau= solve(TGLine==ylimit)-d;
-
-%%----------FOPDT근사 방법 2
-%%% d = solve(TGLine==0); tau = solve(==0.632);
+[x, feval] = fminsearch(obj, v0)
